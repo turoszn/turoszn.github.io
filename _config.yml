@@ -7,9 +7,12 @@ description: >-
 author:
   name: Nate
 
-# Leave baseurl empty IF the repo is named <username>.github.io (serves at root).
-# If it's a project repo served at /reponame/, set baseurl: "/reponame".
-baseurl: "/turosz.github.io"
+# The repo is named "turoszn.github.io" and matches the account, so GitHub Pages
+# serves it as a USER site at the domain root: https://turoszn.github.io
+# A user site serves from "/", so baseurl MUST stay empty — otherwise minima
+# prefixes the stylesheet link and it 404s, leaving the site unstyled.
+# (Only set baseurl: "/reponame" if this were a project repo served under a subpath.)
+baseurl: ""
 url: "https://turoszn.github.io"
 
 # ── Build ─────────────────────────────────────────────────────────────
