@@ -1,0 +1,79 @@
+---
+# The empty front matter above is required — it tells Jekyll to compile this SCSS.
+---
+
+// ── Theme variables (override minima's defaults; must precede the import) ──
+// If any single line here doesn't take effect on your minima version, move
+// just that line BELOW the @import as a plain CSS rule instead.
+$base-font-size:   19px;
+$base-line-height: 1.65;
+$content-width:    760px;   // ~68–72 chars/line — the measure dense prose needs
+$text-color:       #1a1a1a; // near-black, not pure #000
+$background-color: #fdfdfb; // off-white, not pure #fff
+$brand-color:      #2a6f97; // restrained links
+
+@import "minima";
+
+// ── Targeted overrides (things minima has no variable for) ────────────────
+
+// Blockquotes: your pull-quote is a signature move — style it like one, and
+// kill minima's italic so a long quoted passage stays readable.
+blockquote {
+  border-left: 4px solid $brand-color;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin-left: 0;
+  font-style: normal;
+  font-size: 1.05em;
+  color: #333;
+}
+
+// Inline code: distinct from prose without shouting.
+code {
+  background: #f2f0eb;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+pre { line-height: 1.45; }
+
+// Table of contents (kramdown emits it with id="markdown-toc").
+#markdown-toc {
+  font-size: 0.92em;
+  background: #f7f5f0;
+  border: 1px solid #e6e2d8;
+  border-radius: 6px;
+  padding: 0.9rem 1rem 0.9rem 2.2rem;
+  margin: 1.75rem 0;
+}
+#markdown-toc:before {
+  content: "Contents";
+  display: block;
+  margin: 0 0 0.4rem -1.3rem;
+  font-weight: 600;
+  font-size: 0.9em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+// Heading anchors (paired with the JS in _includes/custom-head.html) — lets a
+// reader copy a link to a single section.
+.anchor-link {
+  opacity: 0;
+  margin-left: 0.35em;
+  text-decoration: none;
+  color: $brand-color;
+  transition: opacity 0.15s;
+}
+h2:hover .anchor-link,
+h3:hover .anchor-link { opacity: 0.45; }
+
+// Footnotes: these are side-branches, so they read quieter than the main line.
+// (This is where the "undecidable actually means X" qualifiers live.)
+.footnotes {
+  font-size: 0.88em;
+  color: #555;
+  border-top: 1px solid #e6e2d8;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+}

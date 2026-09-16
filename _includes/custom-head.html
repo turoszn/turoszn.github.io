@@ -1,0 +1,20 @@
+<!-- Heading anchors: append a linkable ¶ to each h2/h3 in a post. -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.post-content h2[id], .post-content h3[id]')
+      .forEach(function (h) {
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.className = 'anchor-link';
+        a.setAttribute('aria-hidden', 'true');
+        a.textContent = '¶';
+        h.appendChild(a);
+      });
+  });
+</script>
+
+<!-- Privacy-friendly analytics: no cookies, no consent banner.
+     Sign up at goatcounter.com, then uncomment and set your code.
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+-->
