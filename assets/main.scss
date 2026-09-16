@@ -3,44 +3,139 @@
 ---
 
 // ── Theme variables (override minima's defaults; must precede the import) ──
-// If any single line here doesn't take effect on your minima version, move
-// just that line BELOW the @import as a plain CSS rule instead.
+// These feed minima's compiled rules. The runtime light/dark colours are driven
+// by CSS custom properties further down, which supersede these at render time.
 $base-font-size:   19px;
 $base-line-height: 1.65;
 $content-width:    760px;   // ~68–72 chars/line — the measure dense prose needs
-$text-color:       #1a1a1a; // near-black, not pure #000
-$background-color: #fdfdfb; // off-white, not pure #fff
-$brand-color:      #2a6f97; // restrained links
+$text-color:       #1a1a1a;
+$background-color: #fdfdfb;
+$brand-color:      #2a6f97;
 
 @import "minima";
+
+// ── Runtime theme palettes ────────────────────────────────────────────────
+// Colour is driven entirely by these custom properties so a single attribute
+// on <html> flips the whole site. Dark is the default (bare :root); the inline
+// script in _includes/custom-head.html sets data-theme before first paint.
+:root,
+:root[data-theme="dark"] {
+  --bg:      #15181c;   // near-black, faintly warm
+  --text:    #e6e3dd;   // off-white body text
+  --heading: #f2efe9;   // headings / site title, a touch brighter
+  --muted:   #9aa4ad;   // meta, footnotes, captions
+  --brand:   #6cb6e3;   // links — lightened so it reads on dark
+  --border:  #2a2f37;
+  --surface: #1b2026;   // table-of-contents / zebra rows
+  --code-bg: #21262d;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg:      #fdfdfb;   // off-white, not pure #fff
+  --text:    #1a1a1a;   // near-black, not pure #000
+  --heading: #232323;
+  --muted:   #666666;
+  --brand:   #2a6f97;   // restrained blue
+  --border:  #e6e2d8;
+  --surface: #f7f5f0;
+  --code-bg: #f2f0eb;
+  color-scheme: light;
+}
+
+// ── Map minima's coloured surfaces onto the variables ─────────────────────
+html,
+body { background-color: var(--bg); color: var(--text); }
+
+a,
+a:visited { color: var(--brand); }
+a:hover { color: var(--text); }
+
+h1, h2, h3, h4, h5, h6 { color: var(--heading); }
+
+.site-title,
+.site-title:visited { color: var(--heading); }
+.site-header { border-top-color: var(--brand); border-bottom-color: var(--border); }
+.site-nav .page-link { color: var(--text); }
+
+.site-footer { border-top-color: var(--border); }
+.footer-heading,
+.footer-col-wrapper,
+.post-meta,
+.site-footer { color: var(--muted); }
+
+hr { background-color: var(--border); }
+
+table th, table td { border-color: var(--border); }
+table th { background-color: var(--surface); }
+table tr:nth-child(even) { background-color: var(--surface); }
+
+// The mobile nav menu paints a solid panel — keep it on-theme.
+@media screen and (max-width: 600px) {
+  .site-nav {
+    background-color: var(--bg);
+    border-color: var(--border);
+  }
+}
+
+// ── Floating light/dark toggle (injected by custom-head.html) ─────────────
+.theme-toggle {
+  position: fixed;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 50;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.theme-toggle:hover { color: var(--brand); border-color: var(--brand); transform: translateY(-1px); }
+.theme-toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 // ── Targeted overrides (things minima has no variable for) ────────────────
 
 // Blockquotes: your pull-quote is a signature move — style it like one, and
 // kill minima's italic so a long quoted passage stays readable.
 blockquote {
-  border-left: 4px solid $brand-color;
+  border-left: 4px solid var(--brand);
   padding: 0.2rem 0 0.2rem 1.1rem;
   margin-left: 0;
   font-style: normal;
   font-size: 1.05em;
-  color: #333;
+  color: var(--text);
 }
 
-// Inline code: distinct from prose without shouting.
+// Inline code + code blocks: distinct from prose without shouting.
 code {
-  background: #f2f0eb;
+  background: var(--code-bg);
   padding: 0.1em 0.35em;
   border-radius: 3px;
   font-size: 0.9em;
+}
+pre,
+.highlight,
+pre.highlight {
+  background: var(--code-bg);
+  border-color: var(--border);
+  color: var(--text);
 }
 pre { line-height: 1.45; }
 
 // Table of contents (kramdown emits it with id="markdown-toc").
 #markdown-toc {
   font-size: 0.92em;
-  background: #f7f5f0;
-  border: 1px solid #e6e2d8;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.9rem 1rem 0.9rem 2.2rem;
   margin: 1.75rem 0;
@@ -53,7 +148,7 @@ pre { line-height: 1.45; }
   font-size: 0.9em;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #777;
+  color: var(--muted);
 }
 
 // Heading anchors (paired with the JS in _includes/custom-head.html) — lets a
@@ -62,18 +157,17 @@ pre { line-height: 1.45; }
   opacity: 0;
   margin-left: 0.35em;
   text-decoration: none;
-  color: $brand-color;
+  color: var(--brand);
   transition: opacity 0.15s;
 }
 h2:hover .anchor-link,
 h3:hover .anchor-link { opacity: 0.45; }
 
 // Footnotes: these are side-branches, so they read quieter than the main line.
-// (This is where the "undecidable actually means X" qualifiers live.)
 .footnotes {
   font-size: 0.88em;
-  color: #555;
-  border-top: 1px solid #e6e2d8;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
   margin-top: 2.5rem;
   padding-top: 1rem;
 }

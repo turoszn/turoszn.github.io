@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Category Error at the Heart of Agentic Fleets"
-date: 2026-09-17
+date: 2026-09-16 09:00:00 +0000
 ---
 
 While the internet is buzzing with talk of ever-newer capabilities of agentic
