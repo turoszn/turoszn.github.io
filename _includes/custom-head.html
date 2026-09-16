@@ -1,3 +1,44 @@
+<!-- Theme: apply the saved (or default-dark) theme BEFORE first paint so there
+     is no flash of the wrong colours. Runs during head parse, intentionally. -->
+<script>
+  (function () {
+    var t;
+    try { t = localStorage.getItem('theme'); } catch (e) { t = null; }
+    if (t !== 'light' && t !== 'dark') t = 'dark';   // dark is the default
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<!-- Light/dark toggle: a small floating button that flips the theme and
+     remembers the choice. -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var root = document.documentElement;
+    var btn = document.createElement('button');
+    btn.className = 'theme-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle light or dark theme');
+    btn.title = 'Toggle light/dark theme';
+
+    function paint() {
+      var isDark = root.getAttribute('data-theme') !== 'light';
+      // Show the destination: sun when currently dark, moon when currently light.
+      btn.textContent = isDark ? '☀' : '☾';
+      btn.setAttribute('aria-pressed', String(isDark));
+    }
+
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      paint();
+    });
+
+    paint();
+    document.body.appendChild(btn);
+  });
+</script>
+
 <!-- Heading anchors: append a linkable ¶ to each h2/h3 in a post. -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
