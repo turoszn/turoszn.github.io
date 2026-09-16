@@ -9,8 +9,8 @@ author:
 
 # Leave baseurl empty IF the repo is named <username>.github.io (serves at root).
 # If it's a project repo served at /reponame/, set baseurl: "/reponame".
-baseurl: ""
-url: ""
+baseurl: "/turosz.github.io"
+url: "https://turoszn.github.io"
 
 # ── Build ─────────────────────────────────────────────────────────────
 theme: minima            # native-supported on GitHub Pages; no workflow needed
