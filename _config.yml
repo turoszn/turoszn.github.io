@@ -1,0 +1,39 @@
+# ── Site ──────────────────────────────────────────────────────────────
+title: "Vorien's corner"
+tagline: "Structural notes on LLM and agentic-system security"
+description: >-
+  Where LLM and agentic systems fail structurally — and how to say what
+  you actually built.
+author:
+  name: Nate
+
+# Leave baseurl empty IF the repo is named <username>.github.io (serves at root).
+# If it's a project repo served at /reponame/, set baseurl: "/reponame".
+baseurl: ""
+url: "https://vorien.github.io"
+
+# ── Build ─────────────────────────────────────────────────────────────
+theme: minima            # native-supported on GitHub Pages; no workflow needed
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true         # every heading gets an id → sections are linkable
+  toc_levels: 2..3       # which heading levels appear in the table of contents
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed          # RSS at /feed.xml
+  - jekyll-seo-tag       # meta + Open Graph tags
+
+# ── Theme (minima) ────────────────────────────────────────────────────
+minima:
+  skin: classic          # light. swap to "auto" later for prefers-color-scheme dark
+  social_links: []       # keep empty — no chrome
+show_excerpts: true
+header_pages: []         # add pages here for nav links later, e.g. [about.md]
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - README.md
