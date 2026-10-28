@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pull the Chain Harder — Why Capable Models Refuse Trivial Prompts
+title: Pull the Chain Harder - Why Capable Models Refuse Trivial Prompts
 date: 2026-10-28 09:00:00 +0000
 ---
 
